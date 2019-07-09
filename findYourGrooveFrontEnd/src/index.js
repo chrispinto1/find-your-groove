@@ -38,15 +38,20 @@ function genreEventListener(genre, genreLI) {
 
 function addSubgenresToDom(genre, genreLI, e) {
   if (e.target.childNodes.length === 1 && e.target.className === 'list-group-item') {
+    const genreDiv = document.createElement('div')
     genre.subgenres.forEach(subgenre => {
-      const subgenreLI = document.createElement("ul")
-      subgenreLI.dataset.id = subgenre.id
-      subgenreLI.innerHTML +=
+      genreDiv.innerHTML +=
       `
+      <ul data-id=${subgenre.id}>
       ${subgenre.category}
+      </ul>
       `
-      genreLI.appendChild(subgenreLI)
+      genreLI.appendChild(genreDiv)
     })
+  } else {
+    for (let i = 1; i < e.target.childNodes.length; i++) {
+      e.target.removeChild(e.target.lastElementChild)
+    }
   }
 }
 
