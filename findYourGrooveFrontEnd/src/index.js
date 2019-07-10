@@ -1,20 +1,26 @@
 const User = (() => {
   let totalUsers = 1
 
- return class User {
-   constructor(name) {
-     this.name = name
-     this.likes = []
-     this.id = totalUsers++
+  return class User {
+    constructor(name) {
+      this.name = name
+      this.likes = []
+      this.id = totalUsers++
    }
 
-   addlikes(like) {
+  addlikes(like) {
     this.likes.push(like) 
-     console.log(`${this.likes}`)
+    console.log(`${this.likes}`)
    }
 
  }
 })()
+
+let smith = new User("Smith")
+
+
+
+
 
 const genreList = document.querySelector(".list-genre")
 // fetch("https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=0&limit=20")
