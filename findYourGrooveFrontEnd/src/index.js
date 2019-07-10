@@ -1,3 +1,21 @@
+const User = (() => {
+  let totalUsers = 1
+
+ return class User {
+   constructor(name) {
+     this.name = name
+     this.likes = []
+     this.id = totalUsers++
+   }
+
+   addlikes(like) {
+    this.likes.push(like) 
+     console.log(`${this.likes}`)
+   }
+
+ }
+})()
+
 const genreList = document.querySelector(".list-genre")
 
 function genres(){
@@ -54,6 +72,8 @@ function addSubgenresToDom(genre, genreLI, e) {
     }
   }
 }
+
+
 
 
 
