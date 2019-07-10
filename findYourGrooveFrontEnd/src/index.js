@@ -17,7 +17,11 @@ const User = (() => {
 })()
 
 const genreList = document.querySelector(".list-genre")
-
+// fetch("https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=0&limit=20")
+// .then(resp => resp.json())
+// .then(categories => {
+//   debugger
+// })
 function genres(){
   fetch("http://localhost:3000/genres")
   .then(resp => resp.json())

@@ -1,5 +1,5 @@
 require 'pry'
-
+# require 'rspotify'
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -11,10 +11,18 @@ require 'pry'
 # client = Ticketmaster.client(apikey: ENV["TICKET_MASTER_CLIENT_ID"])
 # response = client.search_events(params: params)
 # events = response.results
+
+# Band.destroy_all
+# Subgenre.destroy_all
+# Genre.destroy_all
+
+# genres = RSpotify::Recommendations.available_genre_seeds
+# # playlist = RSpotify::Playlist.find('wizzler', '00wHcTN0zQiun4xri9pmvX')
+# binding.pry
+# genreList = genres.map{|genre| Genre.create(category: genre.capitalize) }
 #
-Band.destroy_all
-Subgenre.destroy_all
-Genre.destroy_all
+
+binding.pry
 
 blues = Genre.create(category: "Blues")
 classical = Genre.create(category: "Classical")
@@ -42,16 +50,24 @@ house = Subgenre.create(category: "House", genre_id: electronic.id)
 trance = Subgenre.create(category: "Trance", genre_id: electronic.id)
 trap = Subgenre.create(category: "Trap", genre_id: electronic.id)
 
-nirvana= Band.create(spotify_id: nil, name: "Nirvana", genre_id: rock.id)
-blackSabbath= Band.create(spotify_id: nil, name: "Black Sabbath", genre_id: rock.id)
-beethoven= Band.create(spotify_id: nil, name: "Beethoven", genre_id: classical.id)
-johnnyCash= Band.create(spotify_id: nil, name: "Johnny Cash", genre_id: country.id)
-bobMarleyAndTheWailers= Band.create(spotify_id: nil, name: "Bob Marley and The Wailers", genre_id: reggae.id)
-daftPunk= Band.create(spotify_id: nil, name: "Daft Punk", genre_id: electronic.id)
-wuTangClan= Band.create(spotify_id: nil, name: "Wu-Tang Clan", genre_id: hiphop.id)
-slayer= Band.create(spotify_id: nil, name: "Slayer", genre_id: metal.id)
-blackStreet= Band.create(spotify_id: nil, name: "Blackstreet", genre_id: rnb.id)
-childishGambino= Band.create(spotify_id: nil, name: "Childish Gambino", genre_id: rap.id)
-prince= Band.create(spotify_id: nil, name: "Prince", genre_id: pop.id)
-louisArmstrongAndHisHotFive= Band.create(spotify_id: nil, name: "Louis Armstrong and His Hot Five", genre_id: jazz.id)
-muddyWaters= Band.create(spotify_id: nil, name: "Muddy Waters", genre_id: blues.id)
+nirvana= Band.create(name: "Nirvana")
+blackSabbath= Band.create(name: "Black Sabbath")
+beethoven= Band.create(name: "Beethoven")
+johnnyCash= Band.create(name: "Johnny Cash")
+bobMarleyAndTheWailers= Band.create(name: "Bob Marley and The Wailers")
+daftPunk= Band.create(name: "Daft Punk")
+wuTangClan= Band.create(name: "Wu-Tang Clan")
+slayer= Band.create(name: "Slayer")
+blackStreet= Band.create(name: "Blackstreet")
+childishGambino= Band.create(name: "Childish Gambino")
+prince= Band.create(name: "Prince")
+louisArmstrongAndHisHotFive= Band.create(name: "Louis Armstrong and His Hot Five")
+muddyWaters= Band.create(name: "Muddy Waters")
+
+smells = Song.create(title: "Smells Like Teen Spirit",band_id: nirvana.id,spoitfy_snippet: nil)
+heart = Song.create(title: "Heart Shaped Box",band_id: nirvana.id,spoitfy_snippet: nil)
+inBloom = Song.create(title: "In Bloom",band_id: nirvana.id,spoitfy_snippet: nil)
+angel = Song.create(title: "Angel of Death",band_id: slayer.id,spoitfy_snippet: nil)
+ring = Song.create(title: "Ring of Fire",band_id: johnnyCash.id,spoitfy_snippet: nil)
+purple = Song.create(title: "Purple Rain",band_id: prince.id,spoitfy_snippet: nil)
+warPigs = Song.create(title: "War Pigs",band_id: blackSabbath.id,spoitfy_snippet: nil)
