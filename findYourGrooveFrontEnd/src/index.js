@@ -1,3 +1,29 @@
+function getUser(){
+  const enterUser = document.querySelector('#userinput')
+  enterUser.addEventListener('click', function(e){
+    if(e.target.id === "user"){
+      const username = e.target.previousSibling.previousElementSibling.childNodes[1].value
+      createNewUser(username)
+    }
+  })
+}
+
+function createNewUser(username){
+  fetch('http://localhost:3000/users',{
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+	     Accept: 'application/json'
+     },
+     body: JSON.stringify({name: `${username}`})
+   })
+   .then(resp => resp.json())
+   .then(json => {
+     genres()
+   })
+ }
+
+
 const User = (() => {
   let totalUsers = 1
 
@@ -9,7 +35,7 @@ const User = (() => {
    }
 
   addlikes(like) {
-    this.likes.push(like) 
+    this.likes.push(like)
     console.log(`${this.likes}`)
    }
 
@@ -88,8 +114,8 @@ function addSubgenresToDom(genre, genreLI, e) {
 
 
 
-
-genres()
+getUser()
+// genres()
 
 
 

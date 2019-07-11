@@ -3,4 +3,10 @@ Rails.application.routes.draw do
   get "/genres", to: "genres#index"
   get "/subgenres", to: "subgenres#index"
   get "/bands", to: "bands#index"
+  get "/users", to: "users#index"
+  post "/users", to: "users#create"
+  # resourses :genres
+  # resources :subgenres
+  # resources :bands
+  # resources :users
 end
