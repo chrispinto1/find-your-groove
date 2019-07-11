@@ -1,5 +1,6 @@
 require 'pry'
-# require 'rspotify'
+require "discogs"
+require 'rspotify'
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -11,17 +12,21 @@ require 'pry'
 # client = Ticketmaster.client(apikey: ENV["TICKET_MASTER_CLIENT_ID"])
 # response = client.search_events(params: params)
 # events = response.results
-BandSubgenre.destroy_all
-Genre.destroy_all
-Subgenre.destroy_all
-Song.destroy_all
-Band.destroy_all
+# BandSubgenre.destroy_all
+# Genre.destroy_all
+# Subgenre.destroy_all
+# Song.destroy_all
+# Band.destroy_all
 
 # genres = RSpotify::Recommendations.available_genre_seeds
 # # playlist = RSpotify::Playlist.find('wizzler', '00wHcTN0zQiun4xri9pmvX')
 # binding.pry
 # genreList = genres.map{|genre| Genre.create(category: genre.capitalize) }
 
+wrapper = Discogs::Wrapper.new("Test OAuth", user_token: "my_user_token")
+results = wrapper.search("Nick Cave")
+
+binding.pry
 
 blues = Genre.create(category: "Blues")
 classical = Genre.create(category: "Classical")

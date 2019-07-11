@@ -7,6 +7,20 @@ const genreList = document.createElement("ul")
 const colE = document.createElement("div")
 const bandDetail = document.createElement("h2")
 const bandDetails = document.createElement("div")
+bandDetail.innerHTML = `
+Band Detail
+`
+colE.className = "col-md-8"
+genreList.class = "list-genre"
+genreList.id = "list-genre"
+side_bar.id = "side-bar"
+row.class = "row"
+col.class = "col-md-4"
+title.id = "title"
+
+title.innerHTML = `
+Find Your Groove ♫
+`
 
 
 function getUser(){
@@ -73,20 +87,6 @@ function genres(){
 
 
 function addGenresToDom(genres){
-  bandDetail.innerHTML = `
-    Band Detail
-  `
-  colE.className = "col-md-8"
-  genreList.class = "list-genre"
-  genreList.id = "list-genre"
-  side_bar.id = "side-bar"
-  row.class = "row"
-  col.class = "col-md-4"
-  title.id = "title"
-
-  title.innerHTML = `
-    Find Your Groove ♫
-  `
   mainDiv.innerHTML = ``
   side_bar.appendChild(row)
   row.appendChild(col)
@@ -94,22 +94,22 @@ function addGenresToDom(genres){
   genreList.appendChild(title)
   colE.appendChild(bandDetail)
   row.appendChild(colE)
-  row.appendChild(bandDetails)
+  colE.appendChild(bandDetails)
   mainDiv.appendChild(side_bar)
   displayGenreToDom(genres)
 }
 
 function displayGenreToDom(genres) {
-  debugger
   genres.forEach(genre => {
     const genreLI = document.createElement("li")
     genreLI.dataset.id = genre.id
+    genreLI.className = "list-group-item"
     genreLI.innerHTML +=`
     ${genre.category}
     `
+    genreList.appendChild(genreLI)
+    genreEventListener(genre, genreLI)
   })
-  genreList.appendChild(genreLI)
-  genreEventListener(genre, genreLI)
 }
 
 function genreEventListener(genre, genreLI) {
@@ -128,11 +128,12 @@ function addSubgenresToDom(genre, genreLI, e) {
       genreDiv.innerHTML +=
       `
       <ul data-id=${subgenre.id}>
-      ${subgenre.category}
+      ${subgenre.category.charAt(0).toUpperCase() + subgenre.category.slice(1)}
       </ul>
       `
       genreLI.appendChild(genreDiv)
     })
+    subgenreEventListener(genre.subgenres, genreDiv)
   } else {
     for (let i = 1; i < e.target.childNodes.length; i++) {
       e.target.removeChild(e.target.lastElementChild)
@@ -140,11 +141,50 @@ function addSubgenresToDom(genre, genreLI, e) {
   }
 }
 
+function subgenreEventListener(subgenre, genreDiv){
+  genreDiv.addEventListener('click',function(e){
+    sub_genre = subgenre.find(subgenre => {
+      return subgenre.category == e.target.innerText.toLowerCase()
+    })
+    fetch('http://localhost:3000/subgenres/'+sub_genre.id)
+    .then(resp => resp.json())
+    .then(json => {
+      findRandomArtist(json.bands)
+    })
+  })
+}
+
+function findRandomArtist(bands){
+  const bandNumber = getRandomInt(0, bands.length)
+  fetch('http://localhost:3000/bands/'+bands[bandNumber].id)
+  .then(resp => resp.json())
+  .then(band => {
+    addBandToDom(band)
+  })
+}
 
 
+function addBandToDom(band){
+  //band info goes here band.description
+  fetch("https://open.spotify.com/artist/3JysSUOyfVs1UQ0UaESheP")
+  .then(resp => resp.html())
+  .then(json => {
+    debugger
+  })
+  song = findRandomSong(band)
+}
 
+function findRandomSong(band){
+  randomSong = getRandomInt(0,band.songs.length)
+  songInfo = band.songs[randomSong]
+  return songInfo
+}
 
-
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 getUser()
 // genres()
 
