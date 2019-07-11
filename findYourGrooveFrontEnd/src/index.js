@@ -1,4 +1,24 @@
+const mainDiv = document.querySelector("#mainbody")
+const side_bar = document.createElement("div")
+const row = document.createElement("div")
+const col = document.createElement("div")
+const title = document.createElement("div")
+const genreList = document.createElement("ul")
+const colE = document.createElement("div")
+const bandDetail = document.createElement("h2")
+const bandDetails = document.createElement("div")
+
+
 function getUser(){
+  mainDiv.innerHTML = `
+    <div id = "userinput">
+    <div class="ui left icon input">
+    <input type="text" placeholder="Search users...">
+    <i class="users icon"></i>
+    </div>
+    <button type="button" id = "user" class = "ui red button" name="button">Log In</button>
+    </div>
+  `
   const enterUser = document.querySelector('#userinput')
   enterUser.addEventListener('click', function(e){
     if(e.target.id === "user"){
@@ -23,37 +43,26 @@ function createNewUser(username){
    })
  }
 
+// const User = (() => {
+//   let totalUsers = 1
+//
+//   return class User {
+//     constructor(name) {
+//       this.name = name
+//       this.likes = []
+//       this.id = totalUsers++
+//    }
+//
+//   addlikes(like) {
+//     this.likes.push(like)
+//     console.log(`${this.likes}`)
+//    }
+//
+//  }
+// })()
+//
+// let smith = new User("Smith")
 
-const User = (() => {
-  let totalUsers = 1
-
-  return class User {
-    constructor(name) {
-      this.name = name
-      this.likes = []
-      this.id = totalUsers++
-   }
-
-  addlikes(like) {
-    this.likes.push(like)
-    console.log(`${this.likes}`)
-   }
-
- }
-})()
-
-let smith = new User("Smith")
-
-
-
-
-
-const genreList = document.querySelector(".list-genre")
-// fetch("https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=0&limit=20")
-// .then(resp => resp.json())
-// .then(categories => {
-//   debugger
-// })
 function genres(){
   fetch("http://localhost:3000/genres")
   .then(resp => resp.json())
@@ -64,19 +73,41 @@ function genres(){
 
 
 function addGenresToDom(genres){
-    genres.map(genre => {
-      displayGenreToDom(genre)
-    })
+  bandDetail.innerHTML = `
+    Band Detail
+  `
+  colE.className = "col-md-8"
+  genreList.class = "list-genre"
+  genreList.id = "list-genre"
+  side_bar.id = "side-bar"
+  row.class = "row"
+  col.class = "col-md-4"
+  title.id = "title"
+
+  title.innerHTML = `
+    Find Your Groove ♫
+  `
+  mainDiv.innerHTML = ``
+  side_bar.appendChild(row)
+  row.appendChild(col)
+  col.appendChild(genreList)
+  genreList.appendChild(title)
+  colE.appendChild(bandDetail)
+  row.appendChild(colE)
+  row.appendChild(bandDetails)
+  mainDiv.appendChild(side_bar)
+  displayGenreToDom(genres)
 }
 
-function displayGenreToDom(genre) {
-  const genreLI = document.createElement("li")
-  genreLI.className = "list-group-item"
-  genreLI.dataset.id = genre.id
-   genreLI.innerHTML +=
-  `
+function displayGenreToDom(genres) {
+  debugger
+  genres.forEach(genre => {
+    const genreLI = document.createElement("li")
+    genreLI.dataset.id = genre.id
+    genreLI.innerHTML +=`
     ${genre.category}
-  `
+    `
+  })
   genreList.appendChild(genreLI)
   genreEventListener(genre, genreLI)
 }
@@ -117,47 +148,6 @@ function addSubgenresToDom(genre, genreLI, e) {
 getUser()
 // genres()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Spotify } from 'spotify-web-api-js';
-// // var s = new Spotify();
-// //
-// var spotifyApi = new SpotifyWebApi()
-// spotifyApi.setAccessToken('03a5f4c9c9894e58b98287cc918c9b85')
-//
-// spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
-//   if (err) console.error(err);
-//   else {
-//     console.log('Artist albums', data);
-//     debugger
-//   }
-// })
-//
 // function searchForm(){
 //   const search = document.querySelector("#query")
 //   search.addEventListener("click", function(e){
